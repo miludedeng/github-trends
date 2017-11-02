@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "presets": [
         [
             "env",
@@ -31,4 +32,18 @@
             ]
         }
     }
+=======
+  "presets": [
+    ["env", { "modules": false }],
+    "stage-2"
+  ],
+  "plugins": ["transform-runtime"],
+  "comments": false,
+  "env": {
+    "test": {
+      "presets": ["env", "stage-2"],
+      "plugins": [ "istanbul" ]
+    }
+  }
+>>>>>>> b5781767916964943bfeb51526aaf7ac31f1b026
 }
