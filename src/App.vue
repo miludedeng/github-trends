@@ -10,6 +10,7 @@
                 <app-sidebar
                     @hide-sidebar = "handleHideSidebar"
                     @show-sidebar = "handleShowSidebar"
+                    @transLang = "handleLangChange"
                 >
                 </app-sidebar>
                 <div class="app-view-wrapper">
@@ -21,6 +22,7 @@
                             <router-view
                                 :key="$route.fullPath"
                                 v-if="!$route.meta.notKeepAlive"
+                                :lang="lang"
                                 class="app-view"
                                 :class="{
                                     'app-view-with-header': appHeader.show,
@@ -93,6 +95,10 @@ export default {
         },
         handleClickBottomNav({name}) {
             this.activateBottomNav(name);
+        },
+        handleLangChange(lang){
+          this.lang = lang.replace(/ /g,'-').toLocaleLowerCase()
+          this.$router.push({path: '/', query: {lang: this.lang}});
         }
     }
 };

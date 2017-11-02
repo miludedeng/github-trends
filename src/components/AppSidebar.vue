@@ -32,7 +32,7 @@
                         <md-button class="md-raised" @click="editVisible=false">Edit</md-button>
                     </div>
                     <div v-show="!editVisible" style="margin-top: 10px;margin-left:10px">
-                        <md-button class="md-raised"  @click="editVisible=true">Cancel</md-button>
+                        <md-button class="md-raised" @click="editVisible=true">Cancel</md-button>
                     </div>
                     <ul v-show="!editVisible">
                         <li v-for="item in filteredLangList" :key="item" @click="addSelectedLang(item)" class="app-sidebar-all-list">
@@ -123,6 +123,7 @@ export default {
             localStorage.setItem('selectLang', this.selectedLang)
         },
         closeAndGo(lang) {
+            this.$emit('transLang', lang);
             this.close();
         }
     },
