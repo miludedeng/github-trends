@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
     "presets": [
         [
             "env",
@@ -12,8 +11,7 @@
     ],
     "plugins": [
         "transform-runtime",
-        "add-filehash",
-        ["transform-imports", {
+        "add-filehash", ["transform-imports", {
             "vuetify": {
                 "transform": "vuetify/es5/components/${member}",
                 "preventFullImport": true
@@ -32,18 +30,5 @@
             ]
         }
     }
-=======
-  "presets": [
-    ["env", { "modules": false }],
-    "stage-2"
-  ],
-  "plugins": ["transform-runtime"],
-  "comments": false,
-  "env": {
-    "test": {
-      "presets": ["env", "stage-2"],
-      "plugins": [ "istanbul" ]
-    }
-  }
->>>>>>> b5781767916964943bfeb51526aaf7ac31f1b026
+
 }
