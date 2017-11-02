@@ -122,8 +122,7 @@ export default {
             this.selectedLang = temp
             localStorage.setItem('selectLang', this.selectedLang)
         },
-        closeAndGo(route) {
-            this.$router.push(route);
+        closeAndGo(lang) {
             this.close();
         }
     },
