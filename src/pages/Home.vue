@@ -17,7 +17,7 @@
                         {{item.fork}}
                       </span>
                       <span>
-                        <svg aria-label="star" class="octicon octicon-star" height="16" role="img" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z"></path></svg>
+                        <svg v-if="item.current.length>0" aria-label="star" class="octicon octicon-star" height="16" role="img" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z"></path></svg>
                         {{item.current}}
                       </span>
                     </span>
@@ -75,7 +75,7 @@ export default {
       if('lang' in this.$route.query){
         lang = this.$route.query.lang;
       }
-      axios.get('http://localhost:3000/api/'+lang).then(res=>{
+      axios.get('http://www.cafetime.cc:3457/api/'+lang).then(res=>{
         this.trendsList = res.data
       })
     }

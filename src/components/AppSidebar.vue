@@ -145,6 +145,10 @@ export default {
   margin-top: 10px;
   width: 90%;
 }
+.app-sidebar-all-list{
+  float: left;
+  cursor: pointer;
+}
 .lang-list li {
   border-bottom: 1px #e1e4e8 solid !important;
 }
@@ -153,6 +157,10 @@ export default {
 }
 .app-sidebar-block-cancel {
   float: right;
+}
+.app-sidebar-block-text{
+  cursor: pointer;
+  min-width: 200px;
 }
 // 左侧触发滑动宽度
 $swipe-width = 20px
