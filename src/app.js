@@ -20,6 +20,7 @@ import {createRouter} from './router';
 import store from './store';
 import App from './App.vue';
 import Icon from 'vue-awesome/components/Icon.vue';
+var VueMarkdown = require('vue-markdown');
 
 
 Vue.use(Vuetify, {
@@ -35,8 +36,10 @@ Vue.use(Vuetify, {
         VAvatar
     }
 });
+Vue.use(VueMarkdown)
 
 Vue.component('icon', Icon);
+
 
 Vue.config.productionTip = false;
 

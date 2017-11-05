@@ -32,7 +32,10 @@ exports.getData = async(ctx, next) => {
             let lang = $($(e).find('.f6>span')[0]).text().trim();
             let star = $($(e).find('.f6>a')[0]).text().trim();
             let fork = $($(e).find('.f6>a')[1]).text().trim();
-            let current = $($(e).find('.f6>span')[2]).text().trim();
+            let current = $(e).find('.f6>.float-sm-right').text().trim();
+            if(lang==='Built by'){
+              lang = '';
+            }
             list.push({
                 title: title,
                 desc: desc,

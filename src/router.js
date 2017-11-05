@@ -27,17 +27,12 @@ export function createRouter() {
                 component: Home
             },
             {
-                path: '/detail/:id',
+                path: '/detail',
                 name: 'detail',
                 component: Detail,
                 meta: {
                     notKeepAlive: true
                 }
-            },
-            {
-                path: '/user',
-                name: 'user',
-                component: User
             },
             {
                 path: '/404',

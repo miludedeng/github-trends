@@ -1,53 +1,50 @@
 <template>
-    <transition
-        name="slide-down">
-        <header class="app-header-wrapper" v-show="show">
-            <div class="app-header-left">
-                <v-btn
-                    icon
-                    dark
-                    v-if="showMenu"
-                    @click.native="handleClick('menu')">
-                    <v-icon class="app-header-icon">menu</v-icon>
-                </v-btn>
-                <v-btn
-                    icon
-                    v-if="showBack"
-                    @click.native="handleClick('back')">
-                    <v-icon class="app-header-icon">arrow_back</v-icon>
-                </v-btn>
-                <div v-if="showLogo" @click="handleClick('logo')">
-                    <slot name="logo">
-                        <icon v-if="logoIcon" :name="logoIcon" class="app-header-icon"></icon>
-                    </slot>
-                </div>
-            </div>
-            <div class="app-header-middle" v-cloak>
-                <slot name="title">
-                    {{ title }}
+<transition name="slide-down">
+    <header class="app-header-wrapper" v-show="show">
+        <div class="app-header-left">
+            <v-btn icon dark v-if="showMenu" @click.native="handleClick('menu')">
+                <v-icon class="app-header-icon">menu</v-icon>
+            </v-btn>
+            <v-btn icon dark v-if="showBack" @click.native="handleClick('back')">
+                <v-icon class="app-header-icon">arrow_back</v-icon>
+            </v-btn>
+            <div v-if="showLogo" @click="handleClick('logo')">
+                <slot name="logo">
+                    <icon v-if="logoIcon" :name="logoIcon" class="app-header-icon"></icon>
                 </slot>
             </div>
-            <div class="app-header-right">
-              <md-select name="since" id="since" v-model="since">
+        </div>
+        <div class="app-header-middle" v-cloak>
+            <slot name="title">
+                {{ title }}
+            </slot>
+        </div>
+        <div v-if="showLogo" class="app-header-right">
+            <md-select name="since" id="since" v-model="since" @change="changeSince">
                 <md-option value="">today</md-option>
                 <md-option value="weekly">this week</md-option>
                 <md-option value="monthly">this month</md-option>
-              </md-select>
-            </div>
-        </header>
-    </transition>
+            </md-select>
+        </div>
+        <div v-if="showBack" class="app-header-right">
+            <a :href="'https://github.com/'+title.replace(/ /g, '')" target="_blank" style="color:#ccc; text-decoration:none">Open with Browser</a>
+        </div>
+    </header>
+</transition>
 </template>
 
 <script>
-import {mapState} from 'vuex';
+import {
+    mapState
+} from 'vuex';
 import EventBus from '@/event-bus';
 
 export default {
     name: 'appHeader',
     data() {
-      return {
-        since:'',
-      }
+        return {
+            since: '',
+        }
     },
     computed: {
         ...mapState('appShell/appHeader', [
@@ -64,14 +61,13 @@ export default {
         ])
     },
     methods: {
-
-        /**
-         * 处理按钮点击事件
-         *
-         * @param {string} source 点击事件源名称 menu/logo/action
-         * @param {Object} data 随点击事件附带的数据对象
-         */
-        handleClick(source, {actionIdx, route} = {}) {
+        changeSince() {
+            this.$emit('transSince', this.since);
+        },
+        handleClick(source, {
+            actionIdx,
+            route
+        } = {}) {
 
             // 页面正在切换中，不允许操作，防止滑动效果进行中切换
             if (this.isPageSwitching) {
@@ -100,16 +96,19 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-
-$btn-color = #fff
-
+.md-theme-default.md-select:after{
+  color: #ccc
+}
+.md-select{
+  min-width: 80px
+}
 .app-header-wrapper
     display flex
     justify-content space-between
     align-items center
     height $app-header-height
-    background: $theme.primary
-    color $btn-color
+    background: #24292f
+    color #ccc
     padding 0
     box-shadow 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px rgba(0,0,0,.14), 0 1px 10px rgba(0,0,0,.12)
     transition transform 0.3s ease-out
@@ -128,7 +127,7 @@ $btn-color = #fff
 
     // 改变 icon 大小
     .app-header-icon
-        color $btn-color
+        color #ccc
         width 20px
         height 20px
 

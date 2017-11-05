@@ -160,7 +160,7 @@ export default {
 }
 .app-sidebar-block-text{
   cursor: pointer;
-  min-width: 200px;
+  min-width: 150px;
 }
 // 左侧触发滑动宽度
 $swipe-width = 20px
@@ -225,7 +225,7 @@ a
         font-weight bold
         height $app-sidebar-title-height
         line-height $app-sidebar-title-height
-        background: $theme.primary
+        background: #24292f
         text-align left
 
     .app-sidebar-user

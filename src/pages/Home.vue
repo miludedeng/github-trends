@@ -3,11 +3,11 @@
     <div class="content">
         <md-list class="custom-list md-triple-line">
             <md-list-item v-for="item in trendsList" :key="item.title">
-                <div class="md-list-text-container">
-                    <span>{{item.title}}</span>
+                <div class="md-list-text-container" @click="goToDetail(item.title)">
+                    <span class="item-title">{{item.title}}</span>
                     <p>{{item.desc}}</p>
-                    <span>
-                      <span class="repo-language-color ml-0" style="background-color:#f1e05a;"></span>{{item.lang}}
+                    <span class="item-star">
+                      <span v-if="item.lang.length>0" class="repo-language-color ml-0" style="background-color:#f1e05a;"></span>{{item.lang}}
                       <span>
                         <svg aria-label="star" class="octicon octicon-star" height="16" role="img" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z"></path></svg>
                         {{item.star}}
@@ -25,7 +25,6 @@
                 <md-divider class="md-inset"></md-divider>
             </md-list-item>
         </md-list>
-
     </div>
 </div>
 </template>
@@ -51,7 +50,15 @@ export default {
         ...mapActions('appShell/appBottomNavigator', [
             'showBottomNav',
             'activateBottomNav'
-        ])
+        ]),
+        goToDetail(title) {
+          this.$router.push({
+            path: '/detail',
+            query: {
+              title: title
+            }
+          })
+        }
     },
     async asyncData() {
         await new Promise((resolve, reject) => {
@@ -75,7 +82,11 @@ export default {
       if('lang' in this.$route.query){
         lang = this.$route.query.lang;
       }
-      axios.get('http://www.cafetime.cc:3457/api/'+lang).then(res=>{
+      let since = 'today';
+      if('since' in this.$route.query){
+        since = this.$route.query.since;
+      }
+      axios.get('http://www.cafetime.cc:3457/api/'+lang+'?since='+since).then(res=>{
         this.trendsList = res.data
       })
     }
@@ -92,6 +103,15 @@ $text-color := rgba($material-theme.text-color, $material-theme.primary-text-per
     height: 12px;
     border-radius: 50%;
 }
+.item-title{
+  color: #0366d6;
+  text-decoration: none;
+  font-size: 20px;
+}
+.item-star{
+  margin-top: 6px;
+}
+svg { fill: #999; }
   .md-divider.md-inset
       margin: 0 10px
 

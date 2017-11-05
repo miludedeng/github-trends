@@ -5,7 +5,8 @@
                 <app-header
                     class="app-shell-header"
                     @click-menu="handleClickHeaderMenu"
-                    @click-back="handleClickHeaderBack">
+                    @click-back="handleClickHeaderBack"
+                    @transSince = "handleSinceChange">
                 </app-header>
                 <app-sidebar
                     @hide-sidebar = "handleHideSidebar"
@@ -59,7 +60,10 @@ export default {
         AppSidebar,
     },
     data() {
-        return {};
+        return {
+          lang: 'all',
+          since: 'today'
+        };
     },
     computed: {
         ...mapState('appShell', [
@@ -97,8 +101,12 @@ export default {
             this.activateBottomNav(name);
         },
         handleLangChange(lang){
-          this.lang = lang.replace(/ /g,'-').toLocaleLowerCase()
-          this.$router.push({path: '/', query: {lang: this.lang}});
+          this.lang = lang.replace(/ /g,'-').toLocaleLowerCase();
+          this.$router.push({path: '/', query: {lang: this.lang, since: this.since}});
+        },
+        handleSinceChange(since){
+          this.since = since;
+          this.$router.push({path: '/', query: {lang: this.lang, since: this.since}});
         }
     }
 };
