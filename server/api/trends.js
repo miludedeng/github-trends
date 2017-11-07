@@ -1,6 +1,6 @@
 let https = require('https')
 let cheerio = require('cheerio')
-
+let cache = {}
 function getData(lang, since) {
     if (!since) {
         since = 'today'
@@ -23,6 +23,11 @@ function getData(lang, since) {
 exports.getData = async(ctx, next) => {
     let lang = ctx.params.lang;
     let since = ctx.query.since;
+    let cacheKey = lang+"_"+since;
+    if(cache[cacheKey]&&new Date().getTime()-cache[cacheKey].time<10*60*1000){
+      ctx.body = cache[cacheKey].data;
+      return
+    }
     await getData(lang, since).then(data => {
         var $ = cheerio.load(data);
         let list = []
@@ -45,6 +50,10 @@ exports.getData = async(ctx, next) => {
                 current: current,
             })
         });
+        cache[cacheKey] = {
+          time: new Date().getTime(),
+          data: list
+        }
         ctx.body = list;
     });
 }
