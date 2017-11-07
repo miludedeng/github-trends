@@ -314,7 +314,7 @@ button::-moz-focus-inner {
 </style>
 <style lang="stylus" scoped>
 .detail-wrapper{
-  margin: 0 20px;
+  padding: 0 20px;
   text-align:left;
 }
 .detail-content
